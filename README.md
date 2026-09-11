@@ -77,13 +77,6 @@ Browser
 
 Clique em um produto para ir a `produto.php?id=...` (o detalhe, também "tudo junto").
 
-**Perguntas para os alunos:**
-
-- Quantas responsabilidades diferentes existem dentro de `index.php`?
-- Se o time de design quiser mudar só o HTML, o que ele corre o risco de quebrar?
-- E se quisermos reutilizar a busca de produtos em outra página?
-- Em `produto.php`, por que convertemos o `id` para inteiro? (dica: SQL Injection)
-
 **A ideia:** funciona, mas tudo está **acoplado**. Mudar uma coisa mexe em tudo.
 
 ---
@@ -108,13 +101,6 @@ Percorra os arquivos na aula, nesta ordem:
 2. `app/Http/Controllers/ProdutoController.php` — busca no Model e escolhe a View. **Sem HTML, sem SQL.**
 3. `app/Models/Produto.php` — a única camada que "sabe" do banco.
 4. `resources/views/produtos/index.blade.php` — **só** exibe. Sem SQL.
-
-**Perguntas para os alunos:**
-
-- Onde está o SQL agora? (spoiler: você não escreveu nenhum — o Eloquent gera)
-- Comparando com o Projeto 1, o que ficou mais fácil de manter?
-- No detalhe, o `findOrFail` devolve 404 sozinho. Quem faria isso no Projeto 1?
-- A View mudou de visual; o Controller precisou saber disso?
 
 **A ideia:** as mesmas tarefas de antes, agora **separadas em camadas**.
 
@@ -152,13 +138,6 @@ API Node/Express (:8093)  ── JSON ──►  React monta a listagem
    v
 React monta o detalhe
 ```
-
-**Perguntas para os alunos:**
-
-- O que a API devolve: HTML ou dados? Quem transforma isso em tela?
-- Ao navegar entre listagem e detalhe, a página inteira recarrega?
-- A API poderia servir também um app de celular? Por quê?
-- Por que precisamos configurar **CORS** aqui, mas não nos projetos 1 e 2?
 
 **A ideia:** **backend e frontend viram aplicações independentes** que
 conversam por HTTP. A mesma API serve web, mobile, outro servidor, etc.
@@ -215,21 +194,6 @@ docker compose down
 | 2       | Laravel + Blade + SQLite  | `php:8.3-cli`, Laravel stable via `composer:2` |
 | 3a      | Node.js + Express         | `node:22-alpine`, Express 4.21 |
 | 3b      | React + Vite + React Router | React 18.3, Vite 5.4, React Router 6 |
-
-### Decisões técnicas
-
-- **SQLite nos projetos 1 e 2:** banco em arquivo, sem subir outro servidor.
-  Assim o Projeto 1 mostra `$sql = "SELECT ..."` de verdade e o Projeto 2
-  mostra o mesmo dado via ORM, sem nenhum serviço extra.
-- **Laravel e produtos gerados no build/start:** o Dockerfile cria o Laravel
-  com o Composer e sobrescreve só os arquivos da aula; o `entrypoint.sh` roda
-  `migrate:fresh --seed` a cada start, deixando o banco sempre limpo.
-- **API em memória:** os produtos do Projeto 3 vivem em um array — some ao
-  reiniciar o container. Simples de propósito.
-- **CORS restrito** à origem `http://localhost:8094`, para o conceito ficar
-  explícito.
-- **Sem imagens externas:** cada produto usa um emoji, para nada depender de
-  rede durante a aula.
 
 ---
 
