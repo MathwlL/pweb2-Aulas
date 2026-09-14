@@ -2,10 +2,12 @@
 
 namespace Database\Seeders;
 
+use App\Models\Categoria;
 use App\Models\Produto;
 use Illuminate\Database\Seeder;
 
-// SEEDER: popula a tabela com os mesmos produtos das outras arquiteturas.
+// SEEDER: popula produtos e categorias.
+// A parte de CATEGORIAS já vem pronta para o exercício — você não precisa mexer aqui.
 class DatabaseSeeder extends Seeder
 {
     public function run(): void
@@ -21,6 +23,20 @@ class DatabaseSeeder extends Seeder
 
         foreach ($produtos as $produto) {
             Produto::create($produto);
+        }
+
+        // --- CATEGORIAS (base do exercício) ---
+        // O `nome` de cada categoria bate com a coluna `categoria` dos produtos acima.
+        $categorias = [
+            ['nome' => 'Periféricos', 'emoji' => '⌨️', 'descricao' => 'Teclados, mouses e outros acessórios para o seu setup.'],
+            ['nome' => 'Monitores',   'emoji' => '🖥️', 'descricao' => 'Telas para trabalho, estudo e jogos.'],
+            ['nome' => 'Áudio',       'emoji' => '🎧', 'descricao' => 'Headsets e dispositivos de som.'],
+            ['nome' => 'Vídeo',       'emoji' => '📷', 'descricao' => 'Webcams e equipamentos de captura de imagem.'],
+            ['nome' => 'Mobiliário',  'emoji' => '🪑', 'descricao' => 'Cadeiras e mesas para o ambiente de trabalho.'],
+        ];
+
+        foreach ($categorias as $categoria) {
+            Categoria::create($categoria);
         }
     }
 }
