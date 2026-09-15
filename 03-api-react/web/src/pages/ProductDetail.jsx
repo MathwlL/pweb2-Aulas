@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { Link, useParams } from "react-router-dom";
+import Nav from "../components/Nav.jsx";
 import { buscarProduto } from "../api.js";
 
 // Tela de DETALHE. Lê o :id da URL e pede aquele produto à API.
@@ -33,6 +34,7 @@ export default function ProductDetail() {
 
   return (
     <div className="wrap">
+      <Nav />
       <span className="badge">Projeto 3 · React + API</span>
       <br />
       <Link className="voltar" to="/">← Voltar para a listagem</Link>

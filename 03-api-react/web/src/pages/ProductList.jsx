@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
+import Nav from "../components/Nav.jsx";
 import { listarProdutos } from "../api.js";
 
 // Tela de LISTAGEM. Ela não tem os dados prontos: pede à API quando monta.
@@ -19,6 +20,7 @@ export default function ProductList() {
 
   return (
     <div className="wrap">
+      <Nav />
       <span className="badge">Projeto 3 · React + API</span>
       <h1>🛒 Loja Web 2</h1>
       <p className="sub">

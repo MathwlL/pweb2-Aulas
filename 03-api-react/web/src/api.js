@@ -17,3 +17,26 @@ export async function buscarProduto(id) {
   }
   return resposta.json();
 }
+
+// --- Categorias ---
+// Estas telas já estão prontas. Elas chamam os endpoints que os alunos vão
+// criar no exercício (GET /api/categorias e GET /api/categorias/:id).
+// Enquanto esses endpoints não existirem, o fetch falha e a tela mostra um erro.
+
+// Lista todas as categorias.
+export async function listarCategorias() {
+  const resposta = await fetch(`${API_URL}/api/categorias`);
+  if (!resposta.ok) {
+    throw new Error("Falha ao listar categorias");
+  }
+  return resposta.json();
+}
+
+// Busca uma categoria pelo id (esperada com seus produtos).
+export async function buscarCategoria(id) {
+  const resposta = await fetch(`${API_URL}/api/categorias/${id}`);
+  if (!resposta.ok) {
+    throw new Error("Categoria não encontrada");
+  }
+  return resposta.json();
+}

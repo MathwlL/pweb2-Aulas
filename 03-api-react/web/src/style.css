@@ -51,3 +51,29 @@ h1 { margin: 12px 0 4px; font-size: 28px; color: #052e16; }
 .desc { color: #374151; line-height: 1.6; }
 .preco-lg { font-size: 30px; color: #16a34a; font-weight: bold; margin: 12px 0 4px; }
 .estoque { color: #6b7280; font-size: 14px; }
+
+/* Menu de navegação (Produtos / Categorias). */
+.nav { display: flex; gap: 8px; margin-bottom: 20px; flex-wrap: wrap; }
+.nav-link {
+  text-decoration: none; font-weight: bold; font-size: 14px; color: #059669;
+  padding: 8px 14px; border-radius: 8px; background: #fff; border: 1px solid #d1fae5;
+}
+.nav-link:hover { background: #ecfdf5; }
+.nav-link.ativo { background: #059669; color: #fff; border-color: #059669; }
+
+/* Descrição curta dentro do card de categoria. */
+.sub-card { color: #6b7280; font-size: 13px; margin: 6px 0 0; line-height: 1.45; }
+
+/* Título de seção (ex.: "Produtos desta categoria"). */
+.secao { font-size: 18px; margin: 28px 0 12px; color: #052e16; }
+
+/* Caixa de erro amigável (aparece enquanto o endpoint da API não existe). */
+.erro-box {
+  background: #fef2f2; border: 1px solid #fecaca; color: #991b1b;
+  border-radius: 12px; padding: 18px 20px;
+}
+.erro-box p { margin: 8px 0 0; color: #7f1d1d; font-size: 14px; line-height: 1.5; }
+.erro-box code {
+  background: #fee2e2; color: #991b1b; padding: 2px 6px; border-radius: 4px;
+  font-family: "Courier New", monospace; font-size: 13px;
+}

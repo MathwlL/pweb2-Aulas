@@ -46,10 +46,25 @@
         .desc { color: #475569; line-height: 1.6; }
         .preco-lg { font-size: 30px; color: #16a34a; font-weight: bold; margin: 12px 0 4px; }
         .estoque { color: #64748b; font-size: 14px; }
+
+        /* Menu de navegação entre Produtos e Categorias. */
+        .nav { display: flex; gap: 8px; margin-bottom: 20px; flex-wrap: wrap; }
+        .nav a {
+            text-decoration: none; font-weight: bold; font-size: 14px; color: #4f46e5;
+            padding: 8px 14px; border-radius: 8px; background: #fff; border: 1px solid #e2e8f0;
+        }
+        .nav a:hover { background: #eef2ff; }
     </style>
 </head>
 <body>
     <div class="wrap">
+        {{-- Menu fixo. O link "Categorias" aponta para a rota que VOCÊ vai criar
+             no exercício. Enquanto ela não existir, clicar aqui dá erro 404. --}}
+        <nav class="nav">
+            <a href="/">Produtos</a>
+            <a href="/categorias">Categorias</a>
+        </nav>
+
         @yield('conteudo')
     </div>
 </body>
