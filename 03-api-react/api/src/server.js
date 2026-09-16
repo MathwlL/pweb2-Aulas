@@ -1,6 +1,7 @@
 import express from "express";
 import cors from "cors";
 import { produtos } from "./produtos.js";
+import { categorias } from "./categorias.js";
 
 const app = express();
 const PORT = 3000;
@@ -18,6 +19,28 @@ app.use((req, res, next) => {
     console.log(`[API] ${req.method} ${req.originalUrl} - ${res.statusCode} - ${Date.now() - inicio}ms`);
   });
   next();
+});
+
+app.get("/api/categorias", (req, res) => {
+  res.json(categorias);
+});
+
+app.get("/api/categorias/:id", (req, res) => {
+  const id = Number(req.params.id);
+  const categoria = categorias.find((c) => c.id === id);
+
+  if (!categoria) {
+    return res.status(404).json({ error: "Categoria não encontrada" });
+  }
+
+  const produtosDaCategoria = produtos.filter(
+    (p) => p.categoria === categoria.nome
+  );
+
+  res.json({
+    ...categoria,
+    produtos: produtosDaCategoria
+  });
 });
 
 // GET /api/produtos — lista de produtos (a "listagem").
