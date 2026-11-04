@@ -1,205 +1,121 @@
-# Programação para Web 2 — Três Arquiteturas, a Mesma Loja
+# Programação para Web 2 — Atividades
 
-> **A pergunta da aula:** a mesma tela (listar produtos e ver o detalhe de um
-> produto) pode ser construída de várias formas. **Onde fica cada
-> responsabilidade** — buscar dados, aplicar regras e montar a interface — em
-> cada uma delas?
+### 1. Backend de Categorias — Laravel MVC e Node.js/Express
 
-Este repositório traz **a mesma loja** (listagem de produtos + página de
-detalhe) implementada em **três arquiteturas diferentes**, para mostrar a
-evolução do desenvolvimento Web:
+Desenvolvimento de funcionalidades para gerenciamento e consulta de categorias em aplicações web utilizando Laravel e Node.js com Express.
 
-```text
-1) Monólito "tudo junto"      HTML + CSS + SQL no mesmo arquivo (PHP)
-            ↓
-2) MVC                        Model / Controller / View separados (Laravel)
-            ↓
-3) API + Front apartado       API que só devolve dados (Node) + SPA (React)
-```
+**Implementações:**
+- Criação de rotas para listagem e visualização de categorias.
+- Desenvolvimento do `CategoriaController` no Laravel.
+- Criação das views `index` e `show` utilizando Blade.
+- Implementação dos endpoints `GET /api/categorias` e `GET /api/categorias/:id`.
+- Associação entre categorias e produtos.
+- Tratamento de erros para categorias inexistentes (HTTP 404).
+- Integração com interfaces frontend.
 
-Os **produtos são os mesmos** nos três projetos — só muda **como** o código é
-organizado.
-
----
-
-## Pré-requisitos
-
-Só é preciso **Docker**. Nada de PHP, Node ou Composer instalados na máquina.
-
-```bash
-docker --version
-docker compose version
-```
+**Tecnologias:**
+- PHP
+- Laravel
+- Node.js
+- Express
+- JavaScript
+- React
+- Docker
 
 ---
 
-## Executando tudo
+### 2. CRUD de Projetos — NestJS
 
-Na raiz do repositório:
+Implementação de um novo recurso CRUD de Projetos em uma aplicação backend desenvolvida com NestJS, seguindo a arquitetura utilizada anteriormente no gerenciamento de tarefas.
 
-```bash
-docker compose up --build
-```
+**Implementações:**
+- Criação de módulo, controller e service.
+- Desenvolvimento da entidade `Projeto`.
+- Implementação das operações CRUD.
+- Criação de DTOs para recebimento e validação dos dados.
+- Validação de campos utilizando `class-validator`.
+- Utilização de `ValidationPipe`.
+- Tratamento de exceções com `NotFoundException`.
+- Testes dos endpoints utilizando Postman.
 
-Em outro terminal:
-
-```bash
-docker ps
-```
-
-| Projeto | Arquitetura            | URL                          | Tecnologia        |
-| ------- | ---------------------- | ---------------------------- | ----------------- |
-| 1       | Monólito "tudo junto"  | http://localhost:8091        | PHP + SQLite      |
-| 2       | MVC                    | http://localhost:8092        | Laravel + Blade   |
-| 3a      | API (dados)            | http://localhost:8093/api/produtos | Node + Express |
-| 3b      | Front (SPA)            | http://localhost:8094        | React + Vite      |
-
-> A primeira execução demora mais (build do Laravel via Composer e build do
-> React via npm). Depois, o cache deixa tudo rápido.
+**Tecnologias:**
+- Node.js
+- TypeScript
+- NestJS
+- class-validator
+- class-transformer
+- Postman
 
 ---
 
-## Projeto 1 — Monólito "tudo junto"
+### 3. Integração com PostgreSQL utilizando TypeORM
 
-**URL:** http://localhost:8091
+Integração do backend desenvolvido com NestJS a um banco de dados PostgreSQL, substituindo o armazenamento em memória por persistência de dados utilizando TypeORM.
 
-Abra `01-monolito-php/index.php` no editor **enquanto** mostra a página. No
-**mesmo arquivo** estão: a conexão com o banco, a query SQL, o HTML e o CSS.
+**Implementações:**
+- Configuração do PostgreSQL utilizando Docker Compose.
+- Integração do TypeORM com NestJS.
+- Mapeamento de entidades para tabelas utilizando decorators.
+- Configuração da conexão com o banco de dados.
+- Criação e execução de migrations.
+- Implementação de Seeder para inserção de dados iniciais.
+- Utilização do Repository do TypeORM.
+- Operações assíncronas de consulta, criação, atualização e exclusão.
+- Persistência dos dados mesmo após reiniciar o servidor.
 
-```text
-Browser
-   | GET /
-   v
-index.php  ── conexão + SQL + HTML + CSS, tudo junto ──►  HTML pronto
-   v
-Browser
-```
-
-Clique em um produto para ir a `produto.php?id=...` (o detalhe, também "tudo junto").
-
-**A ideia:** funciona, mas tudo está **acoplado**. Mudar uma coisa mexe em tudo.
-
----
-
-## Projeto 2 — MVC (separando responsabilidades)
-
-**URL:** http://localhost:8092
-
-O mesmo resultado, mas agora cada responsabilidade tem seu lugar:
-
-```text
-Rota (routes/web.php)
-   v
-Controller (ProdutoController)  ── pede dados ──►  Model (Produto)  ──►  Banco
-   v
-View (Blade: produtos/index)    ── só exibe ──►  HTML
-```
-
-Percorra os arquivos na aula, nesta ordem:
-
-1. `routes/web.php` — a URL aponta para um método do Controller.
-2. `app/Http/Controllers/ProdutoController.php` — busca no Model e escolhe a View. **Sem HTML, sem SQL.**
-3. `app/Models/Produto.php` — a única camada que "sabe" do banco.
-4. `resources/views/produtos/index.blade.php` — **só** exibe. Sem SQL.
-
-**A ideia:** as mesmas tarefas de antes, agora **separadas em camadas**.
+**Tecnologias:**
+- Node.js
+- TypeScript
+- NestJS
+- PostgreSQL
+- TypeORM
+- Docker
+- Docker Compose
 
 ---
 
-## Projeto 3 — API + Front apartado
+### 4. Autenticação e Segurança de APIs — JWT e NestJS
 
-**URLs:** API em http://localhost:8093 · Front em http://localhost:8094
+Implementação de um sistema de autenticação e autorização em uma API REST desenvolvida com NestJS, utilizando JSON Web Token (JWT) e cookies httpOnly para proteger o acesso aos recursos da aplicação.
 
-Aqui a separação vai além: o **backend não gera mais tela nenhuma**. Ele só
-entrega **dados (JSON)**. Quem monta a interface é o **React**, no navegador.
+**Implementações:**
+- Criação da entidade `User` para armazenamento dos usuários no PostgreSQL.
+- Desenvolvimento do módulo `UsersModule` e do serviço `UsersService`.
+- Implementação de cadastro e login de usuários.
+- Criptografia (hash) de senhas utilizando `bcryptjs`.
+- Geração e validação de tokens JWT.
+- Armazenamento do token em cookies `httpOnly`.
+- Configuração de cookies com propriedades `sameSite`, `secure` e `maxAge`.
+- Criação da estratégia `JwtStrategy` para autenticação utilizando Passport.
+- Implementação do `JwtAuthGuard` para proteger rotas.
+- Utilização do identificador `sub` do JWT para identificar o usuário no servidor.
+- Implementação de logout com remoção do cookie de autenticação.
+- Proteção das rotas de tarefas, permitindo acesso somente a usuários autenticados.
+- Validação de credenciais e tratamento de erros de autenticação.
+- Testes de cadastro, login, logout e rotas protegidas utilizando Postman.
+- Integração do sistema de autenticação com o frontend.
 
-Primeiro, veja que a API devolve **dados puros**:
+**Endpoints implementados:**
 
-```bash
-curl http://localhost:8093/api/produtos
-curl http://localhost:8093/api/produtos/1
-curl -i http://localhost:8093/api/produtos/999   # 404
-```
+| Método | Rota | Funcionalidade |
+|---|---|---|
+| POST | `/api/auth/register` | Cadastro de usuários |
+| POST | `/api/auth/login` | Autenticação e geração do JWT |
+| POST | `/api/auth/logout` | Encerramento da sessão |
+| GET | `/api/auth/me` | Consulta do usuário autenticado |
+| GET | `/api/tarefas` | Listagem protegida de tarefas |
 
-Depois abra o front em http://localhost:8094 com o **DevTools → Network** aberto
-e o terminal da API à vista:
-
-```bash
-docker compose logs -f api
-```
-
-```text
-React (browser, :8094)
-   | fetch GET /api/produtos
-   v
-API Node/Express (:8093)  ── JSON ──►  React monta a listagem
-   |
-   | (clicar num produto → fetch GET /api/produtos/:id)
-   v
-React monta o detalhe
-```
-
-**A ideia:** **backend e frontend viram aplicações independentes** que
-conversam por HTTP. A mesma API serve web, mobile, outro servidor, etc.
-
----
-
-## Comparando as três arquiteturas
-
-| Responsabilidade        | Projeto 1 (monólito) | Projeto 2 (MVC)          | Projeto 3 (API + React)     |
-| ----------------------- | -------------------- | ------------------------ | --------------------------- |
-| Buscar dados            | `$pdo->query()` no arquivo da página | Model (Eloquent)   | API (endpoint JSON)         |
-| Regras / decisões       | Misturadas no HTML   | Controller               | API (servidor)              |
-| Montar a interface      | HTML no mesmo arquivo | View (Blade), no servidor | React, no navegador       |
-| Onde o HTML nasce       | No servidor          | No servidor              | No navegador (cliente)      |
-| Acoplamento             | Altíssimo            | Baixo (camadas)          | Baixo (apps separados)      |
-| Serve mobile/outros?    | Não naturalmente     | Não naturalmente         | Sim (é só JSON)             |
-
-**Onde a lógica de tela é executada:**
-
-```text
-Projeto 1:  servidor gera o HTML   (tudo junto)
-Projeto 2:  servidor gera o HTML   (mas organizado em camadas)
-Projeto 3:  servidor gera DADOS  →  navegador gera o HTML
-```
+**Tecnologias:**
+- Node.js
+- TypeScript
+- NestJS
+- PostgreSQL
+- TypeORM
+- JWT (JSON Web Token)
+- Passport
+- bcryptjs
+- cookie-parser
+- Docker
+- Postman
 
 ---
-
-## Comandos úteis
-
-```bash
-# subir tudo
-docker compose up --build
-
-# em background
-docker compose up --build -d
-
-# containers em execução
-docker ps
-
-# logs da API (Projeto 3)
-docker compose logs -f api
-
-# parar
-docker compose down
-```
-
----
-
-## Tecnologias e versões
-
-| Projeto | Stack                     | Imagem / versão            |
-| ------- | ------------------------- | -------------------------- |
-| 1       | PHP + SQLite (PDO)        | `php:8.3-cli`              |
-| 2       | Laravel + Blade + SQLite  | `php:8.3-cli`, Laravel stable via `composer:2` |
-| 3a      | Node.js + Express         | `node:22-alpine`, Express 4.21 |
-| 3b      | React + Vite + React Router | React 18.3, Vite 5.4, React Router 6 |
-
----
-
-## Continuação da Aula 02
-
-Na Aula 02 vimos *estático × dinâmico*, *client-side × server-side*, *request/
-response*, *HTTP*, *JSON*, *API* e *CORS*. Aqui aplicamos tudo isso numa mesma
-funcionalidade real (uma loja) para comparar **como o código é organizado** em
-cada geração de arquitetura Web.
