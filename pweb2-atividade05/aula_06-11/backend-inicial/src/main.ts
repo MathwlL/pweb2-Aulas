@@ -1,4 +1,3 @@
-import 'dotenv/config';
 import { NestFactory } from '@nestjs/core';
 import { ValidationPipe } from '@nestjs/common';
 import cookieParser from 'cookie-parser';

@@ -1,7 +1,7 @@
 # Sobe o frontend (React) em container e o PostgreSQL.
 #
 # O BACKEND (NestJS) roda LOCALMENTE na sua máquina:
-#     cd backend-inicial && npm install && npm run start:dev   # porta 3000
+#     cd backend-final && npm install && npm run start:dev   # porta 3000
 #
 # O frontend (container) encaminha /api para o backend local via
 # host.docker.internal:3000 (veja frontend/nginx.conf).
